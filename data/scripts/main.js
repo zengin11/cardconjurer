@@ -26,7 +26,7 @@ cornerCutout.crossOrigin = 'anonymous';
 cornerCutout.src = '/data/images/cardImages/cornerCutout.png'
 //To save the server from being overloaded? Maybe?
 function fixUri(input) {
-	var prefix = 'https://raw.githubusercontent.com/ImKyle4815/cardconjurer/master';
+	var prefix = 'https://raw.githubusercontent.com/MrTeferi/cardconjurer/master';
 	if (input.includes(prefix) || input.includes('http')) {
 		return input;
 	} else {
