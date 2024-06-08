@@ -54,6 +54,7 @@ const blank = new Image(); blank.crossOrigin = 'anonymous'; blank.src = fixUri('
 const right = new Image(); right.crossOrigin = 'anonymous'; right.src = fixUri('/img/frames/maskRightHalf.png');
 const middle = new Image(); middle.crossOrigin = 'anonymous'; middle.src = fixUri('/img/frames/maskMiddleThird.png');
 const corner = new Image(); corner.crossOrigin = 'anonymous'; corner.src = fixUri('/img/frames/cornerCutout.png');
+const serial = new Image(); serial.crossOrigin = 'anonymous'; serial.src = fixUri('/img/frames/serial.png');
 //art
 art = new Image(); art.crossOrigin = 'anonymous'; art.src = blank.src;
 art.onerror = function() {if (!this.src.includes('/img/blank.png')) {this.src = fixUri('/img/blank.png');}}
@@ -110,6 +111,7 @@ async function resetCardIrregularities({canvas = [getStandardWidth(), getStandar
 	card.bottomInfoTranslate = {x:0, y:0};
 	card.bottomInfoRotate = 0;
 	card.bottomInfoZoom = 1;
+	card.bottomInfoColor = 'white';
 	replacementMasks = {};
 	//rotation
 	if (card.landscape) {
@@ -142,22 +144,22 @@ async function resetCardIrregularities({canvas = [getStandardWidth(), getStandar
 async function setBottomInfoStyle() {
 	if (document.querySelector('#enableNewCollectorStyle').checked) {
 			await loadBottomInfo({
-				midLeft: {text:'{elemidinfo-set} \u2022 {elemidinfo-language}  {savex}{fontbelerenbsc}{fontsize' + scaleHeight(0.001) + '}{upinline' + scaleHeight(0.0005) + '}\uFFEE{savex2}{elemidinfo-artist}', x:0.0647, y:0.9548, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:'white', outlineWidth:0.003},
-				topLeft: {text:'{elemidinfo-rarity} {kerning3}{elemidinfo-number}{kerning0}', x:0.0647, y:0.9377, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:'white', outlineWidth:0.003},
-				note: {text:'{loadx}{elemidinfo-note}', x:0.0647, y:0.9377, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:'white', outlineWidth:0.003},
-				bottomLeft: {text:'NOT FOR SALE', x:0.0647, y:0.9719, width:0.8707, height:0.0143, oneLine:true, font:'gothammedium', size:0.0143, color:'white', outlineWidth:0.003},
-				wizards: {name:'wizards', text:'{ptshift0,0.0172}\u2122 & \u00a9 {elemidinfo-year} Wizards of the Coast', x:0.0647, y:0.9377, width:0.8707, height:0.0167, oneLine:true, font:'mplantin', size:0.0162, color:'white', align:'right', outlineWidth:0.003},
-				bottomRight: {text:'{ptshift0,0.0172}CardConjurer.com', x:0.0647, y:0.9548, width:0.8707, height:0.0143, oneLine:true, font:'mplantin', size:0.0143, color:'white', align:'right', outlineWidth:0.003}
+				midLeft: {text:'{elemidinfo-set} \u2022 {elemidinfo-language}  {savex}{fontbelerenbsc}{fontsize' + scaleHeight(0.001) + '}{upinline' + scaleHeight(0.0005) + '}\uFFEE{savex2}{elemidinfo-artist}', x:0.0647, y:0.9548, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:card.bottomInfoColor, outlineWidth:0.003},
+				topLeft: {text:'{elemidinfo-rarity} {kerning3}{elemidinfo-number}{kerning0}', x:0.0647, y:0.9377, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:card.bottomInfoColor, outlineWidth:0.003},
+				note: {text:'{loadx}{elemidinfo-note}', x:0.0647, y:0.9377, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:card.bottomInfoColor, outlineWidth:0.003},
+				bottomLeft: {text:'NOT FOR SALE', x:0.0647, y:0.9719, width:0.8707, height:0.0143, oneLine:true, font:'gothammedium', size:0.0143, color:card.bottomInfoColor, outlineWidth:0.003},
+				wizards: {name:'wizards', text:'{ptshift0,0.0172}\u2122 & \u00a9 {elemidinfo-year} Wizards of the Coast', x:0.0647, y:0.9377, width:0.8707, height:0.0167, oneLine:true, font:'mplantin', size:0.0162, color:card.bottomInfoColor, align:'right', outlineWidth:0.003},
+				bottomRight: {text:'{ptshift0,0.0172}CardConjurer.com', x:0.0647, y:0.9548, width:0.8707, height:0.0143, oneLine:true, font:'mplantin', size:0.0143, color:card.bottomInfoColor, align:'right', outlineWidth:0.003}
 			});
 		} else {
 			await loadBottomInfo({
-				midLeft: {text:'{elemidinfo-set} \u2022 {elemidinfo-language}  {savex}{fontbelerenbsc}{fontsize' + scaleHeight(0.001) + '}{upinline' + scaleHeight(0.0005) + '}\uFFEE{savex2}{elemidinfo-artist}', x:0.0647, y:0.9548, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:'white', outlineWidth:0.003},
-				topLeft: {text:'{elemidinfo-number}', x:0.0647, y:0.9377, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:'white', outlineWidth:0.003},
-				note: {text:'{loadx2}{elemidinfo-note}', x:0.0647, y:0.9377, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:'white', outlineWidth:0.003},
-				rarity: {text:'{loadx}{elemidinfo-rarity}', x:0.0647, y:0.9377, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:'white', outlineWidth:0.003},
-				bottomLeft: {text:'NOT FOR SALE', x:0.0647, y:0.9719, width:0.8707, height:0.0143, oneLine:true, font:'gothammedium', size:0.0143, color:'white', outlineWidth:0.003},
-				wizards: {name:'wizards', text:'{ptshift0,0.0172}\u2122 & \u00a9 {elemidinfo-year} Wizards of the Coast', x:0.0647, y:0.9377, width:0.8707, height:0.0167, oneLine:true, font:'mplantin', size:0.0162, color:'white', align:'right', outlineWidth:0.003},
-				bottomRight: {text:'{ptshift0,0.0172}CardConjurer.com', x:0.0647, y:0.9548, width:0.8707, height:0.0143, oneLine:true, font:'mplantin', size:0.0143, color:'white', align:'right', outlineWidth:0.003}
+				midLeft: {text:'{elemidinfo-set} \u2022 {elemidinfo-language}  {savex}{fontbelerenbsc}{fontsize' + scaleHeight(0.001) + '}{upinline' + scaleHeight(0.0005) + '}\uFFEE{savex2}{elemidinfo-artist}', x:0.0647, y:0.9548, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color: card.bottomInfoColor, outlineWidth:0.003},
+				topLeft: {text:'{elemidinfo-number}', x:0.0647, y:0.9377, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:card.bottomInfoColor, outlineWidth:0.003},
+				note: {text:'{loadx2}{elemidinfo-note}', x:0.0647, y:0.9377, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:card.bottomInfoColor, outlineWidth:0.003},
+				rarity: {text:'{loadx}{elemidinfo-rarity}', x:0.0647, y:0.9377, width:0.8707, height:0.0171, oneLine:true, font:'gothammedium', size:0.0171, color:card.bottomInfoColor, outlineWidth:0.003},
+				bottomLeft: {text:'NOT FOR SALE', x:0.0647, y:0.9719, width:0.8707, height:0.0143, oneLine:true, font:'gothammedium', size:0.0143, color:card.bottomInfoColor, outlineWidth:0.003},
+				wizards: {name:'wizards', text:'{ptshift0,0.0172}\u2122 & \u00a9 {elemidinfo-year} Wizards of the Coast', x:0.0647, y:0.9377, width:0.8707, height:0.0167, oneLine:true, font:'mplantin', size:0.0162, color:card.bottomInfoColor, align:'right', outlineWidth:0.003},
+				bottomRight: {text:'{ptshift0,0.0172}CardConjurer.com', x:0.0647, y:0.9548, width:0.8707, height:0.0143, oneLine:true, font:'mplantin', size:0.0143, color:card.bottomInfoColor, align:'right', outlineWidth:0.003}
 			});
 		}
 }
@@ -317,19 +319,27 @@ const setSymbolAliases = new Map([
 	["pmei", "sld"],
 ]);
 //Mana Symbols
-const mana = new Map();""
+const mana = new Map();
 // var manaSymbols = [];
 loadManaSymbols(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-				 'w', 'u', 'b', 'r', 'g', 'c', 'x', 'y', 'z', 't', 'untap', 'e', 's', 'oldtap', 'originaltap', 'purple', "a", "inf", "alchemy"]);
+				 'w', 'u', 'b', 'r', 'g', 'c', 'x', 'y', 'z', 't', 'untap', 's', 'oldtap', 'originaltap', 'purple', "inf", "alchemy"]);
+loadManaSymbols(true, ['e', 'a']);
 loadManaSymbols(['wu', 'wb', 'ub', 'ur', 'br', 'bg', 'rg', 'rw', 'gw', 'gu', '2w', '2u', '2b', '2r', '2g', 'wp', 'up', 'bp', 'rp', 'gp', 'p',
 				 'wup', 'wbp', 'ubp', 'urp', 'brp', 'bgp', 'rgp', 'rwp', 'gwp', 'gup', 'purplew', 'purpleu', 'purpleb', 'purpler', 'purpleg',
-				 '2purple', 'purplep'], [1.2, 1.2]);
+				 '2purple', 'purplep', 'cw', 'cu', 'cb', 'cr', 'cg'], [1.2, 1.2]);
 loadManaSymbols(['bar.png', 'whitebar.png']);
-loadManaSymbols(['chaos'], [1.2, 1]);
-loadManaSymbols(['tk'], [0.8, 1]);
-loadManaSymbols(['planeswalker'], [0.6, 1.2]);
-loadManaSymbols(['+1', '+2', '+3', '+4', '+5', '+6', '+7', '+8', '+9', '-1', '-2', '-3', '-4', '-5', '-6', '-7', '-8', '-9', '+0'], [1.6, 1]);
-function loadManaSymbols(manaSymbolPaths, size = [1, 1]) {
+loadManaSymbols(true, ['chaos'], [1.2, 1]);
+loadManaSymbols(true, ['tk'], [0.8, 1]);
+loadManaSymbols(true, ['planeswalker'], [0.6, 1.2]);
+loadManaSymbols(true, ['+1', '+2', '+3', '+4', '+5', '+6', '+7', '+8', '+9', '-1', '-2', '-3', '-4', '-5', '-6', '-7', '-8', '-9', '+0'], [1.6, 1]);
+function loadManaSymbols(matchColor, manaSymbolPaths, size = [1, 1]) {
+	if (typeof matchColor === 'object') {
+		// Hacky way to add a default argument for matchColor without breaking the function call from other places
+		size = manaSymbolPaths || [1,1];
+		manaSymbolPaths = matchColor;
+		matchColor = false;
+	}
+
 	manaSymbolPaths.forEach(item => {
 		var manaSymbol = {};
 		if (typeof item == 'string') {
@@ -350,6 +360,9 @@ function loadManaSymbols(manaSymbolPaths, size = [1, 1]) {
 				loadManaSymbols([manaSymbol.path.replace(manaSymbol.name, 'back' + i + item[1])])
 			}
 		}
+
+		manaSymbol.matchColor = matchColor;
+
 		manaSymbol.width = size[0];
 		manaSymbol.height = size[1];
 		manaSymbol.image = new Image();
@@ -1704,6 +1717,7 @@ function makeM15NewFrameByLetter(letter, mask = false, maskToRightHalf = false, 
 		var path = '/img/frames/m15/regular/m15PT';
 		if (style == 'ub') {
 			path = '/img/frames/m15/ub/pt/';
+			letter = letter.toLowerCase();
 		}
 		return {
 			'name': frameName + ' Power/Toughness',
@@ -1724,7 +1738,7 @@ function makeM15NewFrameByLetter(letter, mask = false, maskToRightHalf = false, 
 	}
 	var frame = {
 		'name': frameName + ' Frame',
-		'src': '/img/frames/m15/new/' + stylePath + letter + '.png',
+		'src': '/img/frames/m15/new/' + stylePath + letter.toLowerCase() + '.png',
 	}
 
 	// if (letter.includes('L') && letter.length > 1) {
@@ -3382,7 +3396,7 @@ function writeText(textObject, targetContext) {
 			rulesText = rawText.substring(0, flavorIndex);
 		}
 
-		rulesText = rulesText.replace(/\([^\)]+\)/g, '');
+		rulesText = rulesText.replace(/ ?{i}\([^\)]+\){\/i}/g, '');
 
 		rawText = rulesText + flavorText;
 	}
@@ -3405,6 +3419,7 @@ function writeText(textObject, targetContext) {
 	if (rawText.includes('//')) {
 		rawText = rawText.replace(/\/\//g, '{lns}');
 	}
+
 	if (card.version == 'pokemon') {
 		rawText = rawText.replace(/{flavor}/g, '{oldflavor}{fontsize-20}{fontgillsansbolditalic}');
 	} else if (card.version == 'dossier') {
@@ -3412,12 +3427,26 @@ function writeText(textObject, targetContext) {
 	} else if (!card.showsFlavorBar) {
 		rawText = rawText.replace(/{flavor}/g, '{oldflavor}');
 	}
+
+	if (textObject.font == 'saloongirl') {
+		rawText = rawText.replace(/\*/g, '{fontbelerenbsc}*{fontsaloongirl}');
+	}
 	rawText = rawText.replace(/ - /g, ' — ');
-	var splitText = rawText.replace(/\n/g, '{line}').replace(/{-}/g, '\u2014').replace(/{divider}/g, '{/indent}{lns}{bar}{lns}{fixtextalign}').replace(/{flavor}/g, '{/indent}{lns}{bar}{lns}{fixtextalign}{i}').replace(/{oldflavor}/g, '{/indent}{lns}{lns}{up30}{i}').replace(/{/g, splitString + '{').replace(/}/g, '}' + splitString).replace(/ /g, splitString + ' ' + splitString).split(splitString);
+	var splitText = rawText.replace(/\n/g, '{line}').replace(/{-}/g, '\u2014').replace(/{divider}/g, '{/indent}{lns}{bar}{lns}{fixtextalign}');
+	if (rawText.trim().startsWith('{flavor}') || rawText.trim().startsWith('{oldflavor}')) {
+		splitText = splitText.replace(/{flavor}/g, '{i}').replace(/{oldflavor}/g, '{i}');
+	} else {
+		splitText = splitText.replace(/{flavor}/g, '{/indent}{lns}{bar}{lns}{fixtextalign}{i}').replace(/{oldflavor}/g, '{/indent}{lns}{lns}{up30}{i}');
+	}
+	splitText = splitText.replace(/{/g, splitString + '{').replace(/}/g, '}' + splitString).replace(/ /g, splitString + ' ' + splitString).split(splitString);
+
 	splitText = splitText.filter(item => item);
+	if (textObject.manaCost) {
+		splitText = splitText.filter(item => item != ' ');
+	}
 	if (textObject.vertical) {
 		newSplitText = [];
-		splitText.forEach(item => {
+		splitText.forEach((item, index) => {
 			if (item.includes('{') && item.includes('}')) {
 				newSplitText.push(item);
 			} else if (item == ' ') {
@@ -3426,6 +3455,8 @@ function writeText(textObject, targetContext) {
 				item.split('').forEach(char => {
 					if (char == '’') {
 						newSplitText.push(`{right${startingTextSize * 0.6}}`, '’', '{lns}', `{up${startingTextSize * 0.75}}`);
+					} else if (textManaCost && index == splitText.length-1) {
+						newSplitText.push(char);
 					} else {
 						newSplitText.push(char, '{lns}');
 					}
@@ -3438,9 +3469,6 @@ function writeText(textObject, targetContext) {
 	// if (textManaCost && textObject.arcStart > 0) {
 	// 	splitText.reverse();
 	// }
-	if (textObject.manaCost) {
-		splitText = splitText.filter(item => item != ' ');
-	}
 	splitText.push('');
 	//Manages the redraw loop
 	var drawingText = true;
@@ -3505,7 +3533,7 @@ function writeText(textObject, targetContext) {
 		var textOutlineWidth = scaleHeight(textObject.outlineWidth) || 0;
 
 		var hideBottomInfoBorder = card.hideBottomInfoBorder || false;
-		if (hideBottomInfoBorder && ['midLeft', 'topLeft', 'note', 'bottomLeft', 'wizards', 'bottomRight'].includes(textObject.name)) {
+		if (hideBottomInfoBorder && ['midLeft', 'topLeft', 'note', 'bottomLeft', 'wizards', 'bottomRight', 'rarity'].includes(textObject.name)) {
 			textOutlineWidth = 0;
 		}
 		lineContext.lineWidth = textOutlineWidth;
@@ -3718,6 +3746,12 @@ function writeText(textObject, targetContext) {
 					} else {
 						manaSymbol = getManaSymbol(possibleCode) || getManaSymbol(possibleCode.split('').reverse().join(''));
 					}
+
+					var origManaSymbolColor = manaSymbolColor;
+					if (manaSymbol.matchColor && !manaSymbolColor && textColor !== 'black') {
+						manaSymbolColor = textColor;
+					}
+
 					var manaSymbolSpacing = textSize * 0.04 + textManaSpacing;
 					var manaSymbolWidth = manaSymbol.width * textSize * 0.78;
 					var manaSymbolHeight = manaSymbol.height * textSize * 0.78;
@@ -3778,6 +3812,8 @@ function writeText(textObject, targetContext) {
 					lineContext.drawImage(fakeShadow, 0, 0);
 					//fake shadow ends (thanks, safari)
 					currentX += manaSymbolWidth + manaSymbolSpacing * 2;
+
+					manaSymbolColor = origManaSymbolColor;
 				} else {
 					wordToWrite = word;
 				}
@@ -4126,11 +4162,9 @@ function artFromScryfall(scryfallResponse) {
 
 		// Find the art that matches the selected print
 		var index = artIllustrations.indexOf(illustrationID);
-		if (index >= 0) {
-			console.log("Art index should be " + index);
-		} else {
+		if (index < 0) {
+			// Couldn't find art
 			index = 0;
-			console.log("Couldn't find art")
 		}
 
 		// Use that art
@@ -4234,6 +4268,7 @@ function setSymbolEdited() {
 	if (document.querySelector('#lockSetSymbolURL').checked) {
 		localStorage.setItem('lockSetSymbolURL', card.setSymbolSource);
 	}
+	localStorage.setItem('set-symbol-source', document.querySelector('#set-symbol-source').value);
 	card.setSymbolX = document.querySelector('#setSymbol-x').value / card.width;
 	card.setSymbolY = document.querySelector('#setSymbol-y').value / card.height;
 	card.setSymbolZoom = document.querySelector('#setSymbol-zoom').value / 100;
@@ -4274,12 +4309,15 @@ function fetchSetSymbol() {
 		uploadSetSymbol(fixUri(`/img/setSymbols/custom/${setCode.toLowerCase()}-${setRarity}.png`), 'resetSetSymbol');
 	} else if (['cc', 'logan', 'joe'].includes(setCode.toLowerCase())) {
 		uploadSetSymbol(fixUri(`/img/setSymbols/custom/${setCode.toLowerCase()}-${setRarity}.svg`), 'resetSetSymbol');
-	} else if (document.querySelector("#fetchSetSymbolFromGatherer").checked) {
+	} else if (document.querySelector("#set-symbol-source").value == 'gatherer') {
 		if (setSymbolAliases.has(setCode.toLowerCase())) setCode = setSymbolAliases.get(setCode.toLowerCase());
 		uploadSetSymbol('http://gatherer.wizards.com/Handlers/Image.ashx?type=symbol&set=' + setCode + '&size=large&rarity=' + setRarity, 'resetSetSymbol');
+	} else if (document.querySelector("#set-symbol-source").value == 'hexproof') {
+		if (setSymbolAliases.has(setCode.toLowerCase())) setCode = setSymbolAliases.get(setCode.toLowerCase());
+		uploadSetSymbol('https://api.hexproof.io/symbols/set/' + setCode + '/' + setRarity, 'resetSetSymbol');
 	} else {
 		var extension = 'svg';
-		if (['moc', 'ltr', 'ltc', 'cmm', 'who', 'scd', 'woe', 'wot', 'woc', 'lci', 'lcc'].includes(setCode.toLowerCase())) {
+		if (['moc', 'ltr', 'ltc', 'cmm', 'who', 'scd', 'woe', 'wot', 'woc', 'lci', 'lcc', 'mkm', 'mkc', 'otj', 'otc'].includes(setCode.toLowerCase())) {
 			extension = 'png';
 		}
 		if (setSymbolAliases.has(setCode.toLowerCase())) setCode = setSymbolAliases.get(setCode.toLowerCase());
@@ -4424,6 +4462,28 @@ async function bottomInfoEdited() {
 
 	drawCard();
 }
+async function serialInfoEdited() {
+	card.serialNumber = document.querySelector('#serial-number').value;
+	card.serialTotal = document.querySelector('#serial-total').value;
+	card.serialX = document.querySelector('#serial-x').value;
+	card.serialY = document.querySelector('#serial-y').value;
+	card.serialScale = document.querySelector('#serial-scale').value;
+
+	drawCard();
+}
+
+async function resetSerial() {
+	card.serialX = scaleX(172/2010);
+	card.serialY = scaleY(1383/2814);
+	card.serialScale = 1.0;
+
+	document.querySelector('#serial-x').value = card.serialX;
+	document.querySelector('#serial-y').value = card.serialY;
+	document.querySelector('#serial-scale').value = card.serialScale;
+
+	drawCard();
+}
+
 function artistEdited(value) {
 	document.querySelector('#art-artist').value = value;
 	document.querySelector('#info-artist').value = value;
@@ -4527,6 +4587,45 @@ function drawCard() {
 	cardContext.drawImage(textCanvas, 0, 0, cardCanvas.width, cardCanvas.height);
 	// set symbol
 	cardContext.drawImage(setSymbol, scaleX(card.setSymbolX), scaleY(card.setSymbolY), setSymbol.width * card.setSymbolZoom, setSymbol.height * card.setSymbolZoom)
+	// serial
+	if (card.serialNumber || card.serialTotal) {
+		var x = parseInt(card.serialX) || 172;
+		var y = parseInt(card.serialY) || 1383;
+		var scale = parseFloat(card.serialScale) || 1.0;
+
+		cardContext.drawImage(serial, scaleX(x/2010), scaleY(y/2814), scaleX(464/2010) * scale, scaleY(143/2814) * scale);
+
+		var number = {
+			name:"Number",
+			text: '{kerning3}' + card.serialNumber || '',
+			x: (x+(30 * scale))/2010,
+			y: (y+(52 * scale))/2814,
+			width: (190 * scale)/2010,
+			height: (55 * scale)/2814,
+			oneLine: true,
+			font: 'gothambold',
+			color: 'white',
+			size: (55 * scale)/2010,
+			align: 'center'
+		};
+
+		var total = {
+			name:"Number",
+			text: '{kerning3}' + card.serialTotal || '',
+			x: (x+(251 * scale))/2010,
+			y: (y+(52 * scale))/2814,
+			width: (190 * scale)/2010,
+			height: (55 * scale)/2814,
+			oneLine: true,
+			font: 'gothambold',
+			color: 'white',
+			size: (55 * scale)/2010,
+			align: 'center'
+		};
+
+		writeText(number, cardContext);
+		writeText(total, cardContext);
+	}
 	// bottom info
 	if (card.bottomInfoTranslate) {
 		cardContext.save();
@@ -4677,14 +4776,31 @@ function changeCardIndex() {
 	if (cardToImport.lang == "ph") {langFontCode = "{fontphyrexian}"}
 	var name = cardToImport.name || '';
 	if (name.startsWith('A-')) { name = name.replace('A-', '{alchemy}'); }
-	if (card.text.title) {card.text.title.text = langFontCode + curlyQuotes(name);}
+
+	if (card.text.title) {
+		if (card.version == 'wanted') {
+			var subtitle = '';
+			var index = name.indexOf(', ');
+
+			if (index > 0) {
+			  card.text.subtitle.text = langFontCode + curlyQuotes(name.substring(index+2));
+			  card.text.title.text = langFontCode + curlyQuotes(name.substring(0, index+1));
+			} else {
+				card.text.title.text = langFontCode + curlyQuotes(name);
+				card.text.subtitle.text = '';
+			}
+		} else {
+			card.text.title.text = langFontCode + curlyQuotes(name);
+		}
+	}
+
 	if (card.text.nickname) {card.text.nickname.text = cardToImport.flavor_name || '';}
 	if (card.text.mana) {card.text.mana.text = cardToImport.mana_cost || '';}
 	if (card.text.type) {card.text.type.text = langFontCode + cardToImport.type_line || '';}
 
 	var italicExemptions = ['Boast', 'Cycling', 'Visit', 'Prize', 'I', 'II', 'III', 'IV', 'I, II', 'II, III', 'III, IV', 'I, II, III', 'II, III, IV', 'I, II, III, IV', '• Khans', '• Dragons', '• Mirran', '• Phyrexian', 'Prototype', 'Companion', 'To solve', 'Solved'];
 	var rulesText = (cardToImport.oracle_text || '').replace(/(?:\((?:.*?)\)|[^"\n]+(?= — ))/g, function(a){
-	    if (italicExemptions.includes(a)) {return a;}
+	    if (italicExemptions.includes(a) || (cardToImport.keywords && cardToImport.keywords.indexOf('Spree') != -1 && a.startsWith('+'))) {return a;}
 	    return '{i}' + a + '{/i}';
 	});
 	rulesText = curlyQuotes(rulesText).replace(/{Q}/g, '{untap}').replace(/{\u221E}/g, "{inf}").replace(/• /g, '• {indent}');
@@ -4743,27 +4859,15 @@ function changeCardIndex() {
 
 			if (card.version == 'pokemon') {
 				if (cardToImport.type_line.toLowerCase().includes('creature')) {
-					if (!cardToImport.oracle_text || cardToImport.oracle_text == '') {
-						card.text.rules.text += '{i}';
-					} else {
-						card.text.rules.text += '{flavor}';
-					}
+					card.text.rules.text += '{flavor}';
 					card.text.rules.text += curlyQuotes(flavorText.replace('\n', '{lns}'));
 				} else {
-					if (!cardToImport.oracle_text || cardToImport.oracle_text == '') {
-						card.text.rulesnoncreature.text += '{i}';
-					} else {
-						card.text.rulesnoncreature.text += '{flavor}';
-					}
+					card.text.rules.text += '{flavor}';
 					card.text.rulesnoncreature.text += curlyQuotes(flavorText.replace('\n', '{lns}'));
 				}
 				
 			} else {
-				if (!cardToImport.oracle_text || cardToImport.oracle_text == '') {
-					card.text.rules.text += '{i}';
-				} else {
-					card.text.rules.text += '{flavor}';
-				}
+				card.text.rules.text += '{flavor}';
 				card.text.rules.text += curlyQuotes(flavorText.replace('\n', '{lns}'));
 			}
 
@@ -4990,6 +5094,13 @@ async function loadCard(selectedCardKey) {
 		document.querySelector('#watermark-opacity').value = card.watermarkOpacity * 100;
 		document.getElementById("rounded-corners").checked = !card.noCorners;
 		uploadWatermark(card.watermarkSource);
+		document.querySelector('#serial-number').value = card.serialNumber;
+		document.querySelector('#serial-total').value = card.serialTotal;
+		document.querySelector('#serial-x').value = card.serialX;
+		document.querySelector('#serial-y').value = card.serialY;
+		document.querySelector('#serial-scale').value = card.serialScale;
+		serialInfoEdited();
+
 		card.frames.reverse();
 		await card.frames.forEach(item => addFrame([], item));
 		card.frames.reverse();
@@ -5401,6 +5512,9 @@ if (!localStorage.getItem('autoFit')) {
 // lock set symbol code (user defaults)
 if (!localStorage.getItem('lockSetSymbolCode')) {
 	localStorage.setItem('lockSetSymbolCode', '');
+}
+if (localStorage.getItem('set-symbol-source')) {
+	document.querySelector('#set-symbol-source').value = localStorage.getItem('set-symbol-source');
 }
 document.querySelector('#lockSetSymbolCode').checked = '' != localStorage.getItem('lockSetSymbolCode');
 if (document.querySelector('#lockSetSymbolCode').checked) {
